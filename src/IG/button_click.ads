@@ -15,11 +15,15 @@ package button_click is
    Button5: Gtk_Button;
    Button6: Gtk_Button;
    Button7: Gtk_Button;
-
+   Button8: Gtk_Button;
 
    TextBox: Gtk_Text_View;
    Label : Gtk_Label;
+   --Procedure appelé lors du clic d'un bouton
+   --Effectue les actions a faire en fonction de chaque bouton
    procedure button_clicked (Self : access Gtk_Button_Record'Class);
+
+   --Ecris le texte contenu dans le fichier affiche.txt dans le buffer a afficher a l'ecran
    procedure ecrireBuffer(B : in out Gtk_Text_Buffer; I : in out Gtk_Text_Iter);
 
 end button_click;

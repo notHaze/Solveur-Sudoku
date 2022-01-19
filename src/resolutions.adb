@@ -3,9 +3,6 @@ with ada.Integer_Text_IO; use ada.Integer_Text_IO;
 with TAD_Coordonnee; use TAD_Coordonnee;
 with TAD_ensemble; use TAD_ensemble;
 with TAD_grilleSudoku; use TAD_grilleSudoku;
-with TAD_Pile_Coordonnee; use TAD_Pile_Coordonnee;
-with TAD_Pile_Ensemble;  use TAD_Pile_Ensemble;
-with TAD_Pile_CasPossible;
 with TAD_CasPossible; use TAD_CasPossible;
 
 with affichage; use affichage;
@@ -20,20 +17,15 @@ package body resolutions is
    is
       col,lig,car:Type_Ensemble;
    begin
-
       if not caseVide (g,c) then
             return False;
       end if;
-
+      car:=obtenirChiffresDUnCarre(g,obtenirCarre(c));
       col:=obtenirChiffresDUneColonne(g,obtenirColonne(c));
       lig:=obtenirChiffresDUneLigne(g,obtenirLigne(c));
-      car:=obtenirChiffresDUnCarre(g,obtenirCarre(c));
-
       if appartientChiffre(col,v) or appartientChiffre(lig,v) or appartientChiffre(car,v) then
          return False;
       end if;
-
-
       return True;
    end estChiffreValable;
 
@@ -52,7 +44,6 @@ package body resolutions is
                ajouterChiffre(e,i);
          end if;
       end loop;
-
       return e;
    end obtenirSolutionsPossibles;
 
@@ -96,7 +87,6 @@ package body resolutions is
                coord:=construireCoordonnees(i,j);
                if caseVide(g,coord) then
                   if not casePossibiliteVide(gc,coord) then
-
                      ens:=obtenirCasPossible(gc,coord);
                      if nombreChiffres(ens)=1 then
                         fixerChiffre(g,coord,rechercherSolutionUniqueDansEnsemble(ens),cpt);
@@ -108,7 +98,6 @@ package body resolutions is
                            g2:=g;
                            gc2:=gc;
                            fixerChiffre(g2,coord,iemeChiffre(ens,k),cpt);
-
                            eliminerPossibilite(gc2,g2,coord,iemeChiffre(ens,k));
                            doSudoku(g2,gc2,paradoxe,cpt);
                            k:=k+1;
@@ -127,7 +116,6 @@ package body resolutions is
             i:=i+1;
          end loop;
       end loop;
-
    end doSudoku;
 
 
@@ -171,10 +159,7 @@ package body resolutions is
             end loop;
          end loop;
       end loop;
-
    end PlacerChiffreEvident;
-
-
 
    --------------------
    -- resoudreSudoku --
@@ -187,7 +172,6 @@ package body resolutions is
       cpt:=0;
       gc:=construireCasPossible;
       PlacerChiffreEvident(g,changes,gc,cpt);
-
       if changes then
          trouve:=True;
       else
@@ -199,8 +183,6 @@ package body resolutions is
             trouve:=True;
          end if;
       end if;
-
-
    end resoudreSudoku;
 
 end resolutions;

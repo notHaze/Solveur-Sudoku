@@ -1,9 +1,6 @@
 with TAD_Coordonnee;   use TAD_Coordonnee;
 with TAD_ensemble;     use TAD_ensemble;
 with TAD_grilleSudoku; use TAD_grilleSudoku;
-with TAD_Pile_CasPossible; use TAD_Pile_CasPossible;
-with TAD_Pile_Ensemble;  use TAD_Pile_Ensemble;
-with TAD_Pile_Coordonnee; use TAD_Pile_Coordonnee;
 with TAD_CasPossible; use TAD_CasPossible;
 
 package resolutions is
@@ -38,14 +35,16 @@ package resolutions is
    -- si la solution a ete trouve pour la grille g, alors Trouve est a VRAI et
    -- la grille est complete
    -- sinon Trouve est a FAUX et la grille n'a aucune valeur significative
-   -- parcours la grille
    procedure resoudreSudoku
      (g      : in out Type_Grille;
       trouve :    out Boolean;
       cpt : out Integer);
 
-
+   -- Fonction récursive de back tracking. Utilise une grille de réponse g et une grille de cas possible gc
+   -- Renvoie un paradoxe si arrive a une impossibilité
    procedure doSudoku(g : in out Type_Grille;gc : in out Type_CasPossible; paradoxe : in out Boolean; cpt : in out Integer);
 
+   -- parcours la grille et instance les possibilité dans la grille gc
+   -- place les chiffres evident
    procedure PlacerChiffreEvident(g : in out Type_Grille; changes : out Boolean; gc : in out Type_CasPossible; cpt : in out Integer);
 end resolutions;

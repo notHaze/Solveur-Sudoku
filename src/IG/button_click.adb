@@ -20,7 +20,7 @@ with run_tests_resolutionsIG;
 with run_tests_TAD_CoordonneeIG;
 with run_tests_TAD_EnsembleIG;
 with run_tests_TAD_GrilleIG;
-with all_testsIG; use all_testsIG;
+with run_tests_TAD_CasPossibleIG;
 package body button_click is
 
    procedure button_clicked (Self : access Gtk_Button_Record'Class) is
@@ -30,7 +30,6 @@ package body button_click is
       g      : Type_Grille;
       trouve : Boolean;
       cpt:Integer;
-      --T:= constant String := ASCII.CR
    begin
       Create(F,Out_File,"affichage.txt");
       Close(F);
@@ -99,6 +98,10 @@ package body button_click is
          else
             Insert(B,I,"grille 4 ratee" & ASCII.CR);
          end if;
+      elsif self = Button8 then
+         Set_Text(Label, "Run Test Cas Possible");
+         Set_Text(B,"");
+         run_tests_TAD_CasPossibleIG;
       end if;
       Get_Start_Iter(B,I);
       ecrireBuffer(B,I);
@@ -116,6 +119,5 @@ package body button_click is
       end loop;
       close(F);
    end ecrireBuffer;
-
 
 end button_click;

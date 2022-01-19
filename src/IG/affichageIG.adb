@@ -106,6 +106,4 @@ package body affichageIG is
       afficherGrille (g);
    end afficherResultat;
 
-
-
 end affichageIG;
